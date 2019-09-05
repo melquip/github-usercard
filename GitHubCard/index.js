@@ -7,7 +7,10 @@ function addGithubUserCard(username) {
 	axios.get(`https://api.github.com/users/${username}`)
 		.then(response => {
 			console.log(response);
-			cardsContainer.appendChild(createCardComponent(response.data));
+			const newCard = createCardComponent(response.data);
+			cardsContainer.appendChild(newCard);
+			const newCalendar = new GitHubCalendar('.card:last-child .calendar', username, {responsive: true});
+			console.log(username, newCalendar);
 		})
 		.catch(error => console.error(error));
 }
@@ -101,6 +104,13 @@ function createCardComponent(data) {
 
 	card.appendChild(img);
 	card.appendChild(cardInfo);
+
+	const calendar = document.createElement('div');
+	calendar.classList.add('calendar');
+
+	card.appendChild(calendar);
+
+
 
 	return card;
 }
