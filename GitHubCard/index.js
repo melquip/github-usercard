@@ -74,6 +74,8 @@ axios.get('https://api.github.com/users/melquip/followers')
 </div>
 
 */
+const btnShowGraphText = 'Show Graph';
+const btnHideGraphText = 'Hide Graph';
 function createCardComponent(data) {
 	const card = document.createElement('div');
 	card.classList.add('card');
@@ -119,7 +121,18 @@ function createCardComponent(data) {
 
 	card.appendChild(calendar);
 
+	const expandButton = document.createElement('button');
+	expandButton.textContent = btnShowGraphText;
+	expandButton.addEventListener('click', function() {
+		this.parentElement.classList.toggle('showMore');
+		if(this.parentElement.className.includes('showMore')) {
+			this.textContent = btnHideGraphText;
+		} else {
+			this.textContent = btnShowGraphText;
+		}
+	});
 
+	card.appendChild(expandButton);
 
 	return card;
 }
